@@ -20,6 +20,7 @@ Menu modes:
 - **Multiplayer**: GameHub rooms; empty seats are bots; dropped players are replaced by bots and get
   their seat back when they return; if the host leaves, another player's browser takes over.
 - **Watch bots play**: spectator mode with every card visible.
+- **Manual**: one animated page to scroll through every rule and race, with search (press `/`). Link straight to it with `?manual` or `?manual=race-tithe`.
 
 ## How it's built
 
@@ -33,6 +34,7 @@ Menu modes:
 | `src/net/session.ts` | GameHub multiplayer (host-authoritative, turn-based). |
 | `src/tutorial/tutor.ts` | Tutorial lessons and the narrated seat. |
 | `src/ui/` | Preact UI: map, Showtime stage, decision panels, feed, toasts. |
+| `src/ui/manual/` | The animated, searchable manual. Races, Laws and Mandates are read from the engine content, so it stays in sync. |
 | `public/assets/` | Art, music and sounds generated with OpenRouter (prompts, models and seeds in `CREDITS.json`). |
 
 Tests: `npm test` (60 bot-only games, fleet conservation, every race power fires, determinism, hidden

@@ -13,21 +13,28 @@ import { TUTORIAL_SEAT, Tutor, tutorialConfig } from "../tutorial/tutor.ts";
 import { Portrait } from "./common.tsx";
 import { GameScreen } from "./GameScreen.tsx";
 import { Lobby } from "./Lobby.tsx";
+import { Manual } from "./manual/Manual.tsx";
 
 type Screen =
   | { name: "menu" }
   | { name: "solo-setup" }
   | { name: "local"; mode: "tutorial" | "solo" | "watch"; config: GameConfig; drivers: Driver[]; timers?: boolean }
-  | { name: "multi"; room?: string };
+  | { name: "multi"; room?: string }
+  | { name: "manual"; start?: string };
 
 export function App() {
   const params = new URLSearchParams(location.search);
-  const [screen, setScreen] = useState<Screen>(params.get("room") ? { name: "multi", room: params.get("room")! } : { name: "menu" });
+  const [screen, setScreen] = useState<Screen>(
+    params.get("room") ? { name: "multi", room: params.get("room")! }
+      : params.has("manual") ? { name: "manual", start: params.get("manual") || undefined }
+      : { name: "menu" },
+  );
   useEffect(() => { if (screen.name === "menu" || screen.name === "solo-setup") audio.music("title"); }, [screen.name]);
   const toMenu = () => setScreen({ name: "menu" });
 
   if (screen.name === "local") return <LocalGame key={screen.config.seed} {...screen} onExit={toMenu} />;
   if (screen.name === "multi") return <Lobby room={screen.room} onExit={toMenu} />;
+  if (screen.name === "manual") return <Manual start={screen.start} onExit={toMenu} />;
   return (
     <div class="menu" style={{ backgroundImage: "url(./assets/img/title.webp)" }}>
       {screen.name === "menu" ? <Menu go={setScreen} /> : <SoloSetup go={setScreen} />}
@@ -62,6 +69,9 @@ function Menu({ go }: { go: (s: Screen) => void }) {
       </button>
       <button class="btn" onClick={watch}>
         Watch bots play <small>A spectator game with every card visible.</small>
+      </button>
+      <button class="btn" onClick={() => go({ name: "manual" })}>
+        Manual <small>Scroll through every rule and race, animated and searchable.</small>
       </button>
       <div class="menu-foot"><span>v0.1 · design v2</span><span>Art & music: OpenRouter</span></div>
     </div>
