@@ -1,0 +1,24 @@
+{
+  "title": "Exception",
+  "tagline": "A turn-based game of rule-breaking aliens — every race is a patch to the rulebook. Plan together, then watch together.",
+  "tags": [
+    "games",
+    "strategy",
+    "multiplayer",
+    "bots"
+  ],
+  "screenshot": "/shots/exception.png",
+  "description": "Exception is a computer-native board game about aliens who rewrite the rules they play by. Ten races, each one a patch to the rulebook: some bend adjacency, some steal Sway, some refuse to die on schedule. You plan with the other seats, then watch the whole turn resolve at once.\n\nPlay a solo skirmish against bots at Cadet, Officer or Admiral, watch the tutorial game through one player's eyes with the bot's reasoning on screen, spectate a bot-only match with every card visible, or open a GameHub room and invite friends by link — empty seats are filled by bots, and a dropped player's seat is held until they return.",
+  "highlights": [
+    "Ten alien races, each a different patch to the rules",
+    "Solo skirmish, watchable tutorial and spectator mode",
+    "Multiplayer through GameHub rooms — bots fill empty seats"
+  ],
+  "links": [
+    {
+      "label": "Source",
+      "url": "https://github.com/ArndRosemeier/Exception"
+    }
+  ],
+  "cta": "Break the rules"
+}
