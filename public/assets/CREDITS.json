@@ -1,0 +1,219 @@
+{
+  "img/galaxy-bg.webp": {
+    "prompt": "Very dark, low-contrast, subtle nebula background for a game board, mostly near-black deep indigo with faint violet haze and sparse dim stars, calm and even, no focal objects, must stay dark so UI on top is readable. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1001,
+    "postprocess": "16:9 request returned 1920x1280; center-cropped to 16:9, 1920x1080 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/adored.webp": {
+    "prompt": "Portrait of a glamorous celebrity alien on a stage under spotlights, an adoring crowd of tiny lights below. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1006,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/amenders.webp": {
+    "prompt": "Portrait of bureaucratic alien scribes with quill-like tentacles rewriting glowing law tablets. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1002,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/archivists.webp": {
+    "prompt": "Portrait of an ancient librarian alien among floating ghostly blank cards. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1009,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/brokers.webp": {
+    "prompt": "Portrait of a four-armed casino-dealer alien with poker chips and glowing odds boards made of abstract symbols. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1013,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/fine-print.webp": {
+    "prompt": "Portrait of a sharply dressed lawyer alien whose skin is covered in tiny scrolling glowing line patterns. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1014,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/foldwrights.webp": {
+    "prompt": "Portrait of an origami-like paper alien folding a sheet of starry space like paper. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1008,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/last-word.webp": {
+    "prompt": "Portrait of a lean hooded alien stepping last out of a swirling portal, bathed in alarm-red light, smug grin. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1003,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/lattice.webp": {
+    "prompt": "Portrait of a crystalline network creature with no body, only glowing nodes linked by luminous bridges. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1007,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/murmur.webp": {
+    "prompt": "Portrait of a whispering many-mouthed alien made of smoke, blank masks floating around it. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1011,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/recurrent.webp": {
+    "prompt": "Portrait of an alien made of looping clock-spirals, surrounded by translucent time echoes of itself. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1004,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/superposed.webp": {
+    "prompt": "Portrait of a translucent alien existing in two places at once, two overlapping ghostly copies, quantum shimmer. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1012,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/tithe.webp": {
+    "prompt": "Portrait of a toll-collector alien holding a glowing stamp, coins orbiting around it. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1010,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/undertow.webp": {
+    "prompt": "Portrait of a deep-sea-like bioluminescent alien beneath a planet's rocky crust, planting glowing seeds. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1005,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/races/unwritten.webp": {
+    "prompt": "Portrait of a blank silhouette alien filled with shifting swirls of light and question-mark-shaped glows. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1015,
+    "postprocess": "1:1, 1600px resized to 768x768 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/title.webp": {
+    "prompt": "Epic key art: a swirling spiral galaxy shaped like an enormous open rulebook whose glowing pages are being torn apart and scattered by strange mischievous alien silhouettes of many shapes. Retro-futurist cosmic painterly illustration, deep indigo and violet space, neon cyan and amber accents, slightly playful and weird. Absolutely no text, letters, numbers or lettering anywhere in the image.",
+    "model": "meta/muse-image",
+    "seed": 1000,
+    "postprocess": "16:9 request returned 1920x1280; center-cropped to 16:9, 1920x1080 WebP q80",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "music/council.mp3": {
+    "prompt": "Lively sly negotiation groove, plucky bass, bongos, retro synth stabs, scheming and fun, loopable. Instrumental only, no vocals, no singing.",
+    "model": "google/lyria-3-clip-preview",
+    "seed": null,
+    "postprocess": "re-encoded MP3 160 kbit/s stereo",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "music/plan.mp3": {
+    "prompt": "Calm thinking loop, soft analog synth arpeggio, low steady pulse, gentle and focused, seamless loopable. Instrumental only, no vocals, no singing.",
+    "model": "google/lyria-3-clip-preview",
+    "seed": null,
+    "postprocess": "re-encoded MP3 160 kbit/s stereo",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "music/showtime.mp3": {
+    "prompt": "Tense game-show build-up, driving drums, rising synths, suspense and spectacle, loopable. Instrumental only, no vocals, no singing.",
+    "model": "google/lyria-3-clip-preview",
+    "seed": null,
+    "postprocess": "re-encoded MP3 160 kbit/s stereo",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "music/title.mp3": {
+    "prompt": "Grand but quirky space-opera main theme, analog synths and sweeping strings, playful brass, mischievous and wondrous, about 2 minutes. Instrumental only, no vocals, no singing.",
+    "model": "google/lyria-3-pro-preview",
+    "seed": null,
+    "postprocess": "re-encoded MP3 160 kbit/s stereo",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "music/victory.mp3": {
+    "prompt": "Triumphant short cosmic fanfare, brass and shimmering synths, celebratory, ends cleanly. Instrumental only, no vocals, no singing.",
+    "model": "google/lyria-3-clip-preview",
+    "seed": null,
+    "postprocess": "re-encoded MP3 160 kbit/s stereo",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/alarm.mp3": {
+    "prompt": "The sound of a short sci-fi klaxon alarm",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/betrayal.mp3": {
+    "prompt": "The sound of a dramatic orchestral stab with glass shattering",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/card.mp3": {
+    "prompt": "The sound of a playing card flipped onto a table, crisp snap",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/coin.mp3": {
+    "prompt": "The sound of casino chips clinking",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/echo.mp3": {
+    "prompt": "The sound of a deep underground explosion rumble",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/fold.mp3": {
+    "prompt": "The sound of a deflating descending synth wah, a sad trombone-like fall",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/reveal.mp3": {
+    "prompt": "The sound of a short dramatic synth sting, a reveal",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/rewind.mp3": {
+    "prompt": "The sound of a tape rewinding fast with a whoosh",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/stamp.mp3": {
+    "prompt": "The sound of a heavy rubber stamp slammed on paper",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  },
+  "sfx/win.mp3": {
+    "prompt": "The sound of a short bright synth success chime",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "generated": "2026-11-02 via OpenRouter"
+  }
+}
