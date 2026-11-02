@@ -6,5 +6,6 @@ export default defineConfig({
   base: "./",
   plugins: [preact()],
   server: { port: 5175 },
+  build: { assetsDir: "bundle" },
   test: { environment: "node" },
 } as any);

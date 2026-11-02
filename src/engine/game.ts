@@ -28,10 +28,12 @@ const D = { short: 700, phase: 1100, reveal: 1800, card: 1300, resolve: 2400, bi
 // ---- helpers ------------------------------------------------------------------------------------
 
 export function ev(s: GameState, type: string, text: string, extra: Partial<GameEvent> = {}): void {
-  s.events.push({ n: s.events.length, cycle: s.cycle, type, text, ...extra });
+  const n = s.events.length ? s.events[s.events.length - 1].n + 1 : 0;
+  s.events.push({ n, cycle: s.cycle, type, text, ...extra });
 }
 const nm = (s: GameState, seat: Seat | -1) => (seat < 0 ? "the garrison" : s.seats[seat].name);
 const sysName = (s: GameState, id: number) => s.systems[id].name;
+const an = (n: number) => (n === 8 || n === 11 || n === 18 ? `an ${n}` : `a ${n}`);
 
 function request(s: GameState, seat: Seat, kind: RequestKind, clash?: number): void {
   s.pending.push({ id: newId(s), seat, kind, clash, seconds: SECONDS[kind] });
@@ -329,14 +331,14 @@ function resolvePower(s: GameState, a: Map<Seat, PowerDecision>): void {
         if (!firePower(s, seat, "amenders", "the amendment")) continue;
         law.params[d.amend.param] = v;
       }
-      ev(s, "amend", `${nm(s, seat)} AMEND ${def.name}: “${before}” → “${lawText(law)}”`, { seats: [seat], loud: true, data: { law: law.id } });
+      ev(s, "amend", `${nm(s, seat)} AMENDS ${def.name}: “${before}” → “${lawText(law)}”`, { seats: [seat], loud: true, data: { law: law.id } });
     }
     if (race === "foldwrights" && d.fold) {
       const { a: x, b: y } = d.fold;
       if (x === y || !s.systems[x] || !s.systems[y] || s.adjacency[x].includes(y)) continue;
       if (!firePower(s, seat, "foldwrights", "the fold")) continue;
       s.folds.push({ a: x, b: y, cycle: s.cycle });
-      ev(s, "fold", `${nm(s, seat)} FOLD space: ${sysName(s, x)} and ${sysName(s, y)} touch this Cycle. Anyone may use the fold.`, { seats: [seat], loud: true, data: { a: x, b: y } });
+      ev(s, "fold-space", `${nm(s, seat)} FOLDS space: ${sysName(s, x)} and ${sysName(s, y)} touch this Cycle. Anyone may use the fold.`, { seats: [seat], loud: true, data: { a: x, b: y } });
     }
   }
   s.phase = "plan";
@@ -370,18 +372,18 @@ function resolvePlan(s: GameState, a: Map<Seat, PlanDecision>): void {
       const delay = Math.max(1, Math.min(3, Math.floor(d.echo.delay)));
       const effect = (["destroy", "steal", "cancel", "discard"] as const).includes(d.echo.effect) ? d.echo.effect : "destroy";
       s.echoes.push({ id: newId(s), owner: p.seat, system: d.echo.system, effect, fireOn: s.cycle + delay });
-      ev(s, "echo-plant", `${nm(s, p.seat)} plant an Echo on ${sysName(s, d.echo.system)} (${effect}, in ${delay} Cycle${delay > 1 ? "s" : ""}).`, { only: [p.seat] });
+      ev(s, "echo-plant", `${nm(s, p.seat)} plants an Echo on ${sysName(s, d.echo.system)} (${effect}, in ${delay} Cycle${delay > 1 ? "s" : ""}).`, { only: [p.seat] });
     }
     if (race === "murmur" && d.lies?.length) {
       const valid = d.lies.filter((l) => holds(s, p.seat, l.system)).slice(0, 2);
       if (valid.length && firePower(s, p.seat, "murmur", "their lies")) {
         s.lies = [...s.lies, ...valid.map((l) => ({ ...l, id: newId(s) }))].slice(-2);
-        ev(s, "lie", `${nm(s, p.seat)} spread ${valid.length} new lie${valid.length > 1 ? "s" : ""}.`, { only: [p.seat] });
+        ev(s, "lie", `${nm(s, p.seat)} spreads ${valid.length} new lie${valid.length > 1 ? "s" : ""}.`, { only: [p.seat] });
       }
     }
     if (race === "tithe" && d.tithe) {
       s.titheWatch = d.tithe.filter((r) => r !== "tithe" && s.seats.some((x) => x.race === r)).slice(0, 2);
-      if (s.titheWatch.length) ev(s, "tithe-watch", `${nm(s, p.seat)} watch: ${s.titheWatch.map((r) => raceDef(r).short).join(", ")}.`, { only: [p.seat] });
+      if (s.titheWatch.length) ev(s, "tithe-watch", `${nm(s, p.seat)} watches: ${s.titheWatch.map((r) => raceDef(r).short).join(", ")}.`, { only: [p.seat] });
     }
   }
   s.phase = "convergence";
@@ -428,11 +430,11 @@ function resolveLastWord(s: GameState, a: Map<Seat, LastWordDecision>): void {
   const d = a.get(seat);
   if (d && d.target !== null && targets(s, seat).includes(d.target) && firePower(s, seat, "lastword", "their late arrival")) {
     if (addVector(s, seat, d.target, d.fleets, true)) {
-      ev(s, "lastword", `ALARM! ${nm(s, seat)} have the Last Word: → ${sysName(s, d.target)} with ${s.vectors[s.vectors.length - 1].fleets} fleets.`, { seats: [seat], loud: true, data: { target: d.target } });
+      ev(s, "lastword", `ALARM! ${nm(s, seat)} has the Last Word: → ${sysName(s, d.target)} with ${s.vectors[s.vectors.length - 1].fleets} fleets.`, { seats: [seat], loud: true, data: { target: d.target } });
       checkBetrayal(s, seat, d.target);
     }
   } else {
-    ev(s, "lastword", `${nm(s, seat)} hold their Last Word this Cycle.`, { seats: [seat] });
+    ev(s, "lastword", `${nm(s, seat)} holds back the Last Word this Cycle.`, { seats: [seat] });
   }
   buildClashes(s);
   s.phase = "ask";
@@ -466,7 +468,7 @@ function buildClashes(s: GameState): void {
       if (vs.length === 1) {
         const v = vs[0];
         sys.fleets[v.seat] = (sys.fleets[v.seat] ?? 0) + v.fleets;
-        ev(s, "capture", `${nm(s, v.seat)} take ${sys.name} unopposed.`, { seats: [v.seat], data: { system: target } });
+        ev(s, "capture", `${nm(s, v.seat)} takes ${sys.name} unopposed.`, { seats: [v.seat], data: { system: target } });
         anomaly(s, v.seat, target);
         continue;
       }
@@ -530,13 +532,13 @@ function resolveAsk(s: GameState, a: Map<Seat, AskDecision>): void {
     for (const [cid, list] of grouped) {
       const clash = clashById(s, cid)!;
       const who = list.map((x) => `${nm(s, x.to)}${x.offer ? ` (${x.offer}◆)` : ""}`).join(", ");
-      ev(s, "ask", `${nm(s, seat)} ask ${who} to join them at ${sysName(s, clash.system)}.`, { seats: [seat, ...list.map((x) => x.to)], data: { clash: cid } });
+      ev(s, "ask", `${nm(s, seat)} asks ${who} to join them at ${sysName(s, clash.system)}.`, { seats: [seat, ...list.map((x) => x.to)], data: { clash: cid } });
     }
     for (const t of d.truces ?? []) {
       if (t === seat || !s.seats[t] || s.proposals.some((p) => p.from === seat && p.to === t)) continue;
       if (s.truces.some((x) => (x.a === seat && x.b === t) || (x.a === t && x.b === seat))) continue;
       s.proposals.push({ from: seat, to: t });
-      ev(s, "truce-offer", `${nm(s, seat)} offer ${nm(s, t)} a truce for 2 Cycles.`, { seats: [seat, t] });
+      ev(s, "truce-offer", `${nm(s, seat)} offers ${nm(s, t)} a truce for 2 Cycles.`, { seats: [seat, t] });
     }
   }
   s.phase = "pledge";
@@ -599,11 +601,11 @@ function audit(s: GameState, seat: Seat, system: number): void {
     const pay = Math.min(3, s.players[m].influence);
     s.players[m].influence -= pay;
     s.players[seat].influence += pay;
-    ev(s, "audit", `AUDIT on ${sysName(s, system)}: LIAR! ${nm(s, m)} pay ${nm(s, seat)} ${pay} Influence. The true count is ${s.systems[system].fleets[m] ?? 0}.`, { seats: [seat, m], loud: true, data: { system, caught: true } });
+    ev(s, "audit", `AUDIT on ${sysName(s, system)}: LIAR! ${nm(s, m)} pays ${nm(s, seat)} ${pay} Influence. The true count is ${s.systems[system].fleets[m] ?? 0}.`, { seats: [seat, m], loud: true, data: { system, caught: true } });
   } else {
     s.players[seat].influence -= 2;
     s.players[m].influence += 2;
-    ev(s, "audit", `AUDIT on ${sysName(s, system)}: no lie found. ${nm(s, m)} grin and pocket 2 Influence.`, { seats: [seat, m], loud: true, data: { system, caught: false } });
+    ev(s, "audit", `AUDIT on ${sysName(s, system)}: no lie found. ${nm(s, m)} grins and pockets 2 Influence.`, { seats: [seat, m], loud: true, data: { system, caught: false } });
   }
 }
 
@@ -647,14 +649,14 @@ function showtime(s: GameState): void {
           if (al.revealed) continue;
           al.revealed = true;
           any = true;
-          ev(s, "ally", `${nm(s, al.seat)} join ${nm(s, side.lead)} with ${al.fleets} fleet${al.fleets > 1 ? "s" : ""}!`, { seats: [al.seat, side.lead as Seat], data: { clash: clash.id } });
+          ev(s, "ally", `${nm(s, al.seat)} joins ${nm(s, side.lead)} with ${al.fleets} fleet${al.fleets > 1 ? "s" : ""}!`, { seats: [al.seat, side.lead as Seat], data: { clash: clash.id } });
           // Pay-for-help deals are enforced at the reveal.
           const ask = s.asks.find((k) => k.clash === clash.id && k.to === al.seat && k.from === side.lead);
           if (ask && ask.offer > 0 && side.lead >= 0) {
             const pay = Math.min(ask.offer, s.players[side.lead].influence);
             s.players[side.lead].influence -= pay;
             s.players[al.seat].influence += pay;
-            if (pay) ev(s, "pay", `${nm(s, side.lead)} pay ${nm(s, al.seat)} ${pay} Influence as promised.`, { seats: [side.lead as Seat, al.seat] });
+            if (pay) ev(s, "pay", `${nm(s, side.lead)} pays ${nm(s, al.seat)} ${pay} Influence as promised.`, { seats: [side.lead as Seat, al.seat] });
           }
         }
       });
@@ -667,12 +669,12 @@ function showtime(s: GameState): void {
       for (const side of clash.sides) {
         side.openingRevealed = true;
         if (side.lead < 0) {
-          if (side.opening) ev(s, "opening", `The garrison reveals a ${side.opening.value}.`, { data: { clash: clash.id } });
+          if (side.opening) ev(s, "opening", `The garrison reveals ${an(side.opening.value)}.`, { data: { clash: clash.id } });
           continue;
         }
         const c = side.opening;
-        const what = !c ? "no card" : c.kind === "parley" ? "PARLEY" : `a ${c.value}`;
-        ev(s, "opening", `${nm(s, side.lead)} open with ${what}.`, { seats: [side.lead], data: { clash: clash.id } });
+        const what = !c ? "no card" : c.kind === "parley" ? "PARLEY" : an(c.value);
+        ev(s, "opening", `${nm(s, side.lead)} opens with ${what}.`, { seats: [side.lead], data: { clash: clash.id } });
       }
       const parleys = clash.sides.map((x, i) => (x.opening?.kind === "parley" ? i : -1)).filter((i) => i >= 0);
       if (parleys.length === 2 && clash.sides.length === 2) {
@@ -685,7 +687,7 @@ function showtime(s: GameState): void {
           const side = clash.sides[i];
           side.folded = true;
           clash.log.push({ side: i, kind: "fold", note: "parley" });
-          ev(s, "parley", `${nm(s, side.lead)} Parley alone and back off, collecting Salvage.`, { seats: [side.lead as Seat], data: { clash: clash.id } });
+          ev(s, "parley", `${nm(s, side.lead)} Parleys alone and backs off, collecting Salvage.`, { seats: [side.lead as Seat], data: { clash: clash.id } });
         }
         show.beat = "raise";
       }
@@ -807,7 +809,7 @@ function resolveRewind(s: GameState, seat: Seat, d: RewindDecision | undefined):
     for (const [i, side] of clash.sides.entries()) if (i !== mine && side.lead >= 0) draw(s, side.lead, 1);
     clash.log = clash.log.filter((e) => e.note === "parley");
     clash.winner = null;
-    ev(s, "rewind", `REWIND! ${nm(s, seat)} roll the Clash back to the start of the Raise. Everyone takes their cards back and remembers. Opponents draw 1.`, { seats: [seat], loud: true, data: { clash: clash.id } });
+    ev(s, "rewind", `REWIND! ${nm(s, seat)} rolls the Clash back to the start of the Raise. Everyone takes their cards back and remembers. Opponents draw 1.`, { seats: [seat], loud: true, data: { clash: clash.id } });
     s.delay = D.big;
     return;
   }
@@ -822,7 +824,7 @@ function resolveRaise(s: GameState, seat: Seat, d: RaiseDecision | undefined): v
     side.folded = true;
     s.players[seat].stats.folds++;
     clash.log.push({ side: idx, kind: "fold" });
-    ev(s, "fold", `${nm(s, seat)} fold.`, { seats: [seat], data: { clash: clash.id } });
+    ev(s, "fold", `${nm(s, seat)} folds.`, { seats: [seat], data: { clash: clash.id } });
   };
   if (!d || d.action === "fold") { fold(); s.delay = D.card; return; }
   if (d.action === "card") {
@@ -832,7 +834,7 @@ function resolveRaise(s: GameState, seat: Seat, d: RaiseDecision | undefined): v
     side.raises++;
     s.publicPlayed.push({ seat, value: card.value, cycle: s.cycle });
     clash.log.push({ side: idx, kind: "card", value: card.value, card });
-    ev(s, "raise", `${nm(s, seat)} raise with a ${card.value}. (${sideTotal(s, clash, idx)})`, { seats: [seat], data: { clash: clash.id } });
+    ev(s, "raise", `${nm(s, seat)} raises with ${an(card.value)}. (${sideTotal(s, clash, idx)})`, { seats: [seat], data: { clash: clash.id } });
   } else if (d.action === "null") {
     const card = takeCard(s, seat, d.card ?? s.players[seat].hand.find((c) => c.kind === "null")?.id);
     const races = nullTargets(s, clash, idx);
@@ -841,7 +843,7 @@ function resolveRaise(s: GameState, seat: Seat, d: RaiseDecision | undefined): v
     side.raises++;
     clash.nulled.push(d.target);
     clash.log.push({ side: idx, kind: "null", target: d.target, card });
-    ev(s, "null", `NULLED! ${nm(s, seat)} switch off ${raceDef(d.target).name} for this Clash.`, { seats: [seat], loud: true, data: { clash: clash.id } });
+    ev(s, "null", `NULLED! ${nm(s, seat)} switches off ${raceDef(d.target).name} for this Clash.`, { seats: [seat], loud: true, data: { clash: clash.id } });
   } else if (d.action === "precedent") {
     const vals = powerOn(s, clash, "archivists") ? precedentValues(s, seat) : [];
     if (!vals.includes(d.value ?? -1)) { fold(); return; }
@@ -853,7 +855,7 @@ function resolveRaise(s: GameState, seat: Seat, d: RaiseDecision | undefined): v
       const foes = new Set(clash.sides.filter((x) => x.lead !== seat).map((x) => x.lead));
       const src = s.publicPlayed.find((x) => x.value === d.value && foes.has(x.seat));
       clash.log.push({ side: idx, kind: "precedent", value: d.value });
-      ev(s, "precedent", `PRECEDENT! ${nm(s, seat)} replay ${src ? `${nm(s, src.seat)}'s ${d.value} from Cycle ${src.cycle}` : `a ${d.value}`} as a faded ${Math.max(1, d.value! - 2)}.`, { seats: [seat], loud: true, data: { clash: clash.id } });
+      ev(s, "precedent", `PRECEDENT! ${nm(s, seat)} replays ${src ? `${nm(s, src.seat)}'s ${d.value} from Cycle ${src.cycle}` : an(d.value!)} as a faded ${Math.max(1, d.value! - 2)}.`, { seats: [seat], loud: true, data: { clash: clash.id } });
     }
   }
   s.delay = D.card;
@@ -887,7 +889,7 @@ function resolveParley(s: GameState, a: Map<Seat, ParleyDecision>): void {
       ev(s, "deal", `Deal! ${nm(s, att.lead)} and ${nm(s, def.lead)} now co-hold ${sys.name}.`, { loud: true, data: { clash: clash.id } });
     } else {
       sendHome(s, clash, att);
-      ev(s, "deal", `Deal! ${nm(s, att.lead)} withdraw from ${sys.name}.`, { data: { clash: clash.id } });
+      ev(s, "deal", `Deal! ${nm(s, att.lead)} withdraws from ${sys.name}.`, { data: { clash: clash.id } });
     }
     for (const sd of clash.sides) if (sd.role === "attacker" && sd !== att) sendHome(s, clash, sd);
     if (def) for (const al of def.allies) returnAlly(s, clash, al.seat);
@@ -1051,10 +1053,10 @@ function settle(s: GameState, clash: Clash, winner: number | null): void {
     const allies = w.allies.filter((a) => pledgeOf(s, clash, a.seat)).map((a) => nm(s, a.seat));
     const total = sideTotal(s, clash, winner);
     if (w.role === "attacker") {
-      ev(s, "result", `${nm(s, w.lead)}${allies.length ? ` and ${allies.join(", ")}` : ""} take ${where}! (${total})`, { loud: true, seats: sideSeats(w), data: { clash: clash.id, system: clash.system, winner } });
+      ev(s, "result", `${nm(s, w.lead)}${allies.length ? ` and ${allies.join(", ")} take` : " takes"} ${where}! (${total})`, { loud: true, seats: sideSeats(w), data: { clash: clash.id, system: clash.system, winner } });
       anomaly(s, w.lead as Seat, clash.system);
     } else {
-      ev(s, "result", `${nm(s, w.lead)} hold ${where}! (${total})`, { loud: true, seats: sideSeats(w), data: { clash: clash.id, system: clash.system, winner } });
+      ev(s, "result", `${nm(s, w.lead)} holds ${where}! (${total})`, { loud: true, seats: sideSeats(w), data: { clash: clash.id, system: clash.system, winner } });
     }
   }
   if (latticeSeat !== null) {
@@ -1067,8 +1069,8 @@ function anomaly(s: GameState, seat: Seat, system: number): void {
   if (seat < 0 || s.systems[system].trait !== "anomaly") return;
   const roll = randInt(s, 4);
   const p = s.players[seat];
-  if (roll === 0) { draw(s, seat, 2); ev(s, "anomaly", `Anomaly! ${nm(s, seat)} find 2 cards in the ruins.`, { seats: [seat], loud: true }); }
-  else if (roll === 1) { p.influence += 2; ev(s, "anomaly", `Anomaly! ${nm(s, seat)} gain 2 Influence.`, { seats: [seat], loud: true }); }
+  if (roll === 0) { draw(s, seat, 2); ev(s, "anomaly", `Anomaly! ${nm(s, seat)} finds 2 cards in the ruins.`, { seats: [seat], loud: true }); }
+  else if (roll === 1) { p.influence += 2; ev(s, "anomaly", `Anomaly! ${nm(s, seat)} gains 2 Influence.`, { seats: [seat], loud: true }); }
   else if (roll === 2) {
     const k = Math.min(2, p.drift);
     p.drift -= k;
@@ -1091,7 +1093,7 @@ function resolveBets(s: GameState, a: Map<Seat, BetDecision>): void {
     if (!amount) continue;
     s.players[seat].influence -= amount;
     clash.bets.push({ seat, side: d.side, amount });
-    ev(s, "bet", `${nm(s, seat)} bet ${amount} on ${nm(s, clash.sides[d.side].lead)}.`, { seats: [seat], data: { clash: clash.id } });
+    ev(s, "bet", `${nm(s, seat)} bets ${amount} on ${nm(s, clash.sides[d.side].lead)}.`, { seats: [seat], data: { clash: clash.id } });
   }
   s.delay = clash.bets.length ? D.short : 0;
 }
@@ -1105,7 +1107,7 @@ function reckoning(s: GameState): void {
       if (p.completed.includes(m)) continue;
       if (mandateDef(m).check(s, p.seat)) {
         p.completed.push(m);
-        ev(s, "mandate", `${nm(s, p.seat)} complete a secret Mandate: ${mandateDef(m).name} (${mandateDef(m).text}) +2 Sway.`, { seats: [p.seat], loud: true });
+        ev(s, "mandate", `${nm(s, p.seat)} completes a secret Mandate: ${mandateDef(m).name} (${mandateDef(m).text}) +2 Sway.`, { seats: [p.seat], loud: true });
       }
     }
   }
@@ -1115,7 +1117,7 @@ function reckoning(s: GameState): void {
   if (best >= s.config.swayToWin || s.cycle >= s.config.maxCycles) {
     s.winners = leaders;
     s.phase = "over";
-    ev(s, "over", `${leaders.map((x) => nm(s, x)).join(" and ")} win${leaders.length > 1 ? " together" : ""} with ${best} Sway!`, { seats: leaders, loud: true });
+    ev(s, "over", `${leaders.map((x) => nm(s, x)).join(" and ")} win${leaders.length > 1 ? " together" : "s"} with ${best} Sway!`, { seats: leaders, loud: true });
     s.delay = D.big;
     return;
   }

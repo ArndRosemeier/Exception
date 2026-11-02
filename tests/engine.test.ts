@@ -47,7 +47,7 @@ describe("bot-only games", () => {
       const s = runBotGame(botConfig(seed, 5));
       for (const e of s.events) fired.add(e.type);
     }
-    for (const t of ["amend", "lastword", "rewind", "echo", "fold", "precedent", "tithed", "audit", "betrayal", "null", "ally", "bet", "mandate"]) {
+    for (const t of ["amend", "lastword", "rewind", "echo", "fold-space", "precedent", "tithed", "audit", "betrayal", "null", "ally", "bet", "mandate"]) {
       expect(fired, t).toContain(t);
     }
     expect(RACES.length).toBe(10);
