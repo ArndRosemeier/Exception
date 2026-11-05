@@ -178,15 +178,14 @@
     "prompt": "The sound of a deep underground explosion rumble",
     "model": "bytedance-seed/seed-audio-1-0",
     "seed": null,
-    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
+    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s; cut to 2.5 s with fade-out (2026-11-05)",
     "generated": "2026-11-02 via OpenRouter"
   },
   "sfx/fold.mp3": {
-    "prompt": "The sound of a deflating descending synth wah, a sad trombone-like fall",
+    "prompt": "(derived) sfx/card.mp3 pitched down 20%",
     "model": "bytedance-seed/seed-audio-1-0",
     "seed": null,
-    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
-    "generated": "2026-11-02 via OpenRouter"
+    "postprocess": "replaced the long descending 'wah' (5.9 s, heard as a horn before most Clash results; Arnd 2026-11-05)"
   },
   "sfx/reveal.mp3": {
     "prompt": "The sound of a short dramatic synth sting, a reveal",
