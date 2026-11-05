@@ -29,15 +29,21 @@ export function CountUp({ value, class: cls = "" }: { value: number; class?: str
   return <span class={`${cls} ${bump ? "bump" : ""}`} key={bump}>{shown}</span>;
 }
 
-/** The Showtime stage. It follows the event stream, so a just-settled Clash stays up with its result. */
-export function Stage({ view: v }: { view: View }) {
-  const [why, setWhy] = useState(false);
+/** The Clash on stage right now (a just-settled one stays up with its result), or null. */
+export function stageClash(v: View): Clash | null {
   if (v.phase !== "showtime" && v.phase !== "reckoning") return null;
   const last = [...v.events].reverse().find((e) => e.data && typeof e.data.clash === "number");
   const recent = last ? v.clashes.find((c) => c.id === last.data!.clash) : null;
   const clash: Clash | null = recent?.resolved && last?.cycle === v.cycle ? recent : currentClash(v);
+  if (!clash || (v.phase === "reckoning" && !clash.resolved)) return null;
+  return clash;
+}
+
+/** The Showtime stage. It follows the event stream, so a just-settled Clash stays up with its result. */
+export function Stage({ view: v }: { view: View }) {
+  const [why, setWhy] = useState(false);
+  const clash = stageClash(v);
   if (!clash) return null;
-  if (v.phase === "reckoning" && !clash.resolved) return null;
 
   const sys = v.systems[clash.system];
   const trait = sys.trait ? TRAIT_INFO[sys.trait] : null;
@@ -58,7 +64,7 @@ export function Stage({ view: v }: { view: View }) {
 
   return (
     <div class="stage-wrap">
-      <div class={`stage ${clash.resolved ? "resolved" : ""}`} key={clash.id}>
+      <div class={`stage ${clash.resolved ? "resolved" : ""} ${clash.sides.length >= 4 ? `many n${clash.sides.length}` : clash.sides.length === 3 ? "three" : ""}`} key={clash.id}>
         <div class="stage-bg" style={{ backgroundImage: "url(./assets/img/clash-bg.webp)" }} />
         <div class="stage-head">
           <div class="kicker">Clash</div>

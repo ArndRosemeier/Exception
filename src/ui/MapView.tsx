@@ -3,6 +3,7 @@ import { TRAIT_INFO } from "../engine/content.ts";
 import { currentClash } from "../engine/game.ts";
 import { heldBy, latticeBridges, neighbours, seatOfRace } from "../engine/rules.ts";
 import type { System, View } from "../engine/types.ts";
+import { stageClash } from "./Stage.tsx";
 
 type Props = {
   view: View;
@@ -40,6 +41,16 @@ export function MapView({ view: v, pickable, selected = [], onPick }: Props) {
   const bridges = new Set(lattice !== null ? latticeBridges(v, lattice) : []);
   const tremors = new Set(v.events.filter((e) => e.type === "tremor" && e.cycle === v.cycle).map((e) => e.data?.system as number));
   const starField = useMemo(() => stars(140), []);
+  // Camera: during a Clash, fly onto the contested planet and hold it above the Clash panel.
+  const onStage = stageClash(v);
+  const focus = onStage ? v.systems[onStage.system] : null;
+  const K = 3.2;
+  const camera = focus
+    ? { transform: `translate(${500 - focus.x * K}px, ${190 - focus.y * K}px) scale(${K})` }
+    : { transform: "translate(0px, 0px) scale(1)" };
+  const starCam = focus
+    ? { transform: `translate(${(500 - focus.x) * 0.3}px, ${(200 - focus.y) * 0.3}px) scale(1.25)` }
+    : { transform: "translate(0px, 0px) scale(1)" };
   const flying = v.phase === "convergence" || v.phase === "lastword" || v.phase === "ask" || v.phase === "pledge";
 
   const edges: [number, number][] = [];
@@ -54,7 +65,7 @@ export function MapView({ view: v, pickable, selected = [], onPick }: Props) {
   });
 
   return (
-    <svg viewBox="-20 -20 1040 1040" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Galaxy map" class="map">
+    <svg viewBox="-20 -20 1040 1040" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Galaxy map" class={`map ${focus ? "zoomed" : ""}`}>
       <defs>
         {v.seats.map((s) => (
           <>
@@ -79,9 +90,12 @@ export function MapView({ view: v, pickable, selected = [], onPick }: Props) {
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" /></filter>
       </defs>
 
+      <g class="camera stars-cam" style={starCam}>
       <g class="stars">
         {starField.map((s) => <circle cx={s.x} cy={s.y} r={s.r} fill="#fff" style={{ animationDelay: `${s.d}s`, animationDuration: `${s.t}s` }} />)}
       </g>
+      </g>
+      <g class="camera" style={camera}>
 
       {edges.map(([a, b]) => (
         <g>
@@ -196,6 +210,7 @@ export function MapView({ view: v, pickable, selected = [], onPick }: Props) {
           </g>
         );
       })}
+      </g>
     </svg>
   );
 }
