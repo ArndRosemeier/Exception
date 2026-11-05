@@ -147,11 +147,11 @@
     "generated": "2026-11-02 via OpenRouter"
   },
   "sfx/alarm.mp3": {
-    "prompt": "The sound of a short sci-fi klaxon alarm",
+    "prompt": "The sound of a soft mysterious low synth chime with a gentle shimmering tail, calm, short",
     "model": "bytedance-seed/seed-audio-1-0",
     "seed": null,
-    "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
-    "generated": "2026-11-02 via OpenRouter"
+    "postprocess": "replaced the klaxon (too harsh, Arnd 2026-11-05); trimmed, loudnorm -20 LUFS, 2 s, mono 96 kbit/s",
+    "generated": "2026-11-05 via OpenRouter"
   },
   "sfx/betrayal.mp3": {
     "prompt": "The sound of a dramatic orchestral stab with glass shattering",

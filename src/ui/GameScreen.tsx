@@ -145,7 +145,7 @@ export function GameScreen({ view: v, me, onDecide, controls, tutor, onExit, lab
     if (lastN.current >= 0) {
       for (const e of fresh) {
         const sfx = SFX[e.type];
-        if (sfx) audio.sfx(sfx);
+        if (sfx && (e.loud || e.type !== "lastword")) audio.sfx(sfx);
         if (e.loud && TOAST[e.type]) {
           const id = Math.random();
           setToasts((t) => [...t.slice(-2), { id, ev: e }]);
