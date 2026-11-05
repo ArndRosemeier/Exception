@@ -314,7 +314,7 @@ function Raise({ view: v, me, req, onDecide }: Props) {
       <h3>The Raise: you're behind, {mine} to {best}</h3>
       <div class="why">Play one more card face up, or fold. Every card played is spent, win or lose. Raise {c.sides[idx].raises + 1} of {maxR}.</div>
       <div class="hand">
-        {hand.filter((x) => x.kind === "num").map((card) => <CardView card={card} onClick={() => onDecide({ kind: "raise", action: "card", card: card.id })} title={`Raise +${card.value} → ${mine + card.value}`} />)}
+        {hand.filter((x) => x.kind === "num").map((card) => <CardView big card={card} onClick={() => onDecide({ kind: "raise", action: "card", card: card.id })} title={`Raise +${card.value} → ${mine + card.value}`} />)}
       </div>
       <div class="opts">
         {nulls.map((r) => <button class="btn small" onClick={() => onDecide({ kind: "raise", action: "null", target: r, card: hand.find((x) => x.kind === "null")!.id })}>NULL the {raceDef(r).short}</button>)}

@@ -22,15 +22,16 @@ export function Portrait({ race, size = 44 }: { race: RaceId; size?: number }) {
   );
 }
 
-export function CardView({ card, hidden, ghost, garrison, onClick, selected, title }: {
-  card?: Card | null; hidden?: boolean; ghost?: number; garrison?: boolean; onClick?: () => void; selected?: boolean; title?: string;
+export function CardView({ card, hidden, ghost, garrison, onClick, selected, title, big }: {
+  card?: Card | null; hidden?: boolean; ghost?: number; garrison?: boolean; onClick?: () => void; selected?: boolean; title?: string; big?: boolean;
 }) {
-  if (ghost !== undefined) return <div class="card ghost" title="PRECEDENT (a faded copy)">{ghost}</div>;
-  if (hidden || !card || card.id === -1) return <div class="card back" title="Face down" />;
-  const cls = ["card", card.kind === "parley" ? "parley" : card.kind === "null" ? "null" : "", garrison ? "garrison" : "", onClick ? "pick" : "", selected ? "sel" : ""].join(" ");
+  const size = big ? " big" : "";
+  if (ghost !== undefined) return <div class={`card ghost${size}`} title="PRECEDENT (a faded copy)"><span>{ghost}</span></div>;
+  if (hidden || !card || card.id === -1) return <div class={`card back${size}`} title="Face down" />;
+  const cls = ["card", card.kind === "parley" ? "parley" : card.kind === "null" ? "null" : "", garrison ? "garrison" : "", onClick ? "pick" : "", selected ? "sel" : "", big ? "big" : "", card.kind === "num" && card.value >= 8 ? "high" : ""].join(" ");
   const label = card.kind === "parley" ? "PARLEY" : card.kind === "null" ? "NULL" : String(card.value);
   const tip = title ?? (card.kind === "parley" ? "Parley: opening only. If both sides Parley they can deal; alone you back off with Salvage." : card.kind === "null" ? "Null: as a raise, switch off one race power for this Clash." : `Number card: +${card.value}`);
-  return <div class={cls} onClick={onClick} title={tip}>{label}</div>;
+  return <div class={cls} onClick={onClick} title={tip}><span>{label}</span></div>;
 }
 
 export function seatName(v: View, seat: number): string {
