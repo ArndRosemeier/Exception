@@ -6,6 +6,13 @@ export const CHANGELOG: Release[] = [
   {
     date: "2026-11-05",
     notes: [
+      "Clashes: the camera flies onto the contested planet and holds it above the Clash panel, then pulls back out afterwards.",
+      "Clashes with 4 or 5 sides wrap into rows with smaller pieces, so totals and cards are no longer clipped.",
+    ],
+  },
+  {
+    date: "2026-11-05",
+    notes: [
       "Version numbers and this What's new list.",
       "Sound: a volume slider instead of the on/off button.",
       "Settings: switch each sound effect and music track on or off. Clicking one plays it, so you can find the one that bothers you.",
