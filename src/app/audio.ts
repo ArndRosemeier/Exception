@@ -3,7 +3,7 @@
 const BASE = "./assets/";
 
 export type Track = "title" | "plan" | "council" | "showtime" | "victory";
-export type Sfx = "reveal" | "card" | "fold" | "rewind" | "betrayal" | "stamp" | "echo" | "coin" | "alarm" | "win";
+export type Sfx = "whoosh" | "launch" | "impact" | "tick" | "reveal" | "card" | "fold" | "rewind" | "betrayal" | "stamp" | "echo" | "coin" | "alarm" | "win";
 
 class AudioManager {
   muted = false;

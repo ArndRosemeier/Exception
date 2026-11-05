@@ -215,5 +215,95 @@
     "seed": null,
     "postprocess": "trimmed silence, loudnorm -16 LUFS, mono MP3 96 kbit/s",
     "generated": "2026-11-02 via OpenRouter"
+  },
+  "img/planets/plain1.webp": {
+    "prompt": "A small rocky barren planet in dusty violet and slate tones, craters. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 11,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/plain2.webp": {
+    "prompt": "A small icy blue-teal planet with swirling cloud bands. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 12,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/plain3.webp": {
+    "prompt": "A small rust-orange desert planet with canyons. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 13,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/rich.webp": {
+    "prompt": "A lush jewel planet glowing with veins of golden amber crystal and treasure light, with a thin golden ring. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 14,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/shipyard.webp": {
+    "prompt": "A grey metallic planet wrapped in orbital shipyard scaffolding and docks with tiny cyan lights. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 15,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/nebula.webp": {
+    "prompt": "A ghostly planet half hidden inside a pink and violet nebula mist cloud. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 16,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/anomaly.webp": {
+    "prompt": "A strange glitching planet made of impossible geometric shards, green neon energy cracks, reality tearing. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, no lettering, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 17,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/planets/home.webp": {
+    "prompt": "A majestic alien homeworld planet with strange purple oceans and glowing teal city lights on the night side, unfamiliar alien continents, clouds, a small moon. retro-futurist painterly game art, single planet perfectly centered, filling 80% of the frame, isolated on a pure flat black background, no stars, no text, soft rim light",
+    "model": "meta/muse-image",
+    "seed": 31,
+    "postprocess": "alpha keyed from brightness, cropped to the planet, 320x320 webp"
+  },
+  "img/cards/face.webp": {
+    "prompt": "Ornate retro-futurist tarot card frame, deep indigo cosmic background with subtle constellation lines, neon cyan and amber filigree border, empty dark center, tall vertical portrait card, no text, no numbers",
+    "model": "meta/muse-image",
+    "seed": 32,
+    "postprocess": "2:3, resized to 240x360"
+  },
+  "img/cards/back.webp": {
+    "prompt": "Ornate retro-futurist tarot card back design, symmetric cosmic eye inside a violet and cyan geometric mandala, starry indigo, tall vertical portrait card, no text",
+    "model": "meta/muse-image",
+    "seed": 33,
+    "postprocess": "2:3, resized to 240x360"
+  },
+  "img/clash-bg.webp": {
+    "prompt": "Two alien fleets colliding in deep space, a bright explosion of cyan and amber light in the center, painterly retro-futurist, dramatic, dark edges, no text",
+    "model": "meta/muse-image",
+    "seed": 23,
+    "postprocess": "center-cropped 16:9, 1280x720"
+  },
+  "sfx/whoosh.mp3": {
+    "prompt": "The sound of a fast sci-fi whoosh swoosh transition sweep, short",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed leading silence, loudnorm -16 LUFS, 2 s, mono 96 kbit/s"
+  },
+  "sfx/launch.mp3": {
+    "prompt": "The sound of a squadron of small spaceships launching with engine thrust, short",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed leading silence, loudnorm -16 LUFS, 2 s, mono 96 kbit/s"
+  },
+  "sfx/impact.mp3": {
+    "prompt": "The sound of a heavy sci-fi laser blast impact with a deep boom, short",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed leading silence, loudnorm -16 LUFS, 2 s, mono 96 kbit/s"
+  },
+  "sfx/tick.mp3": {
+    "prompt": "The sound of a soft digital UI blip click, very short",
+    "model": "bytedance-seed/seed-audio-1-0",
+    "seed": null,
+    "postprocess": "trimmed leading silence, loudnorm -16 LUFS, 2 s, mono 96 kbit/s"
   }
 }

@@ -33,7 +33,7 @@ Menu modes:
 | `src/app/controller.ts` | Decides who answers each Request (local, bot, remote), timers (a missed deadline is played by the seat's bot), pacing. |
 | `src/net/session.ts` | GameHub multiplayer (host-authoritative, turn-based). |
 | `src/tutorial/tutor.ts` | Tutorial lessons and the narrated seat. |
-| `src/ui/` | Preact UI: map, Showtime stage, decision panels, feed, toasts. |
+| `src/ui/` | Preact UI: painted galaxy map (planets, orbiting ships, flying fleets), Showtime showdown, phase title cards, decision panels with an advisor ("Advise me" asks your bot), captain's log, toasts. Choices with nothing to decide are answered automatically. |
 | `src/ui/manual/` | The animated, searchable manual. Races, Laws and Mandates are read from the engine content, so it stays in sync. |
 | `public/assets/` | Art, music and sounds generated with OpenRouter (prompts, models and seeds in `CREDITS.json`). |
 
