@@ -37,6 +37,8 @@ Menu modes:
 | `src/ui/manual/` | The animated, searchable manual. Races, Laws and Mandates are read from the engine content, so it stays in sync. |
 | `public/assets/` | Art, music and sounds generated with OpenRouter (prompts, models and seeds in `CREDITS.json`). |
 
+Versions: every shipped build adds one entry at the top of `src/changelog.ts` (shown under "What's new" in the menu); the version is 0.001 per entry, so v0.001 was the first.
+
 Tests: `npm test` (60 bot-only games, fleet conservation, every race power fires, determinism, hidden
 info, and a multiplayer session against an in-memory GameHub). Balance sim: `npm run sim -- 500`.
 

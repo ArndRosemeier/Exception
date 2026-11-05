@@ -11,6 +11,7 @@ import { CardView, Portrait } from "./common.tsx";
 import { DecisionPanel } from "./Decision.tsx";
 import type { MapMode } from "./Decision.tsx";
 import { MapView } from "./MapView.tsx";
+import { SoundControls } from "./Settings.tsx";
 import { CountUp, Stage } from "./Stage.tsx";
 
 export type Controls = {
@@ -115,7 +116,6 @@ export function GameScreen({ view: v, me, onDecide, controls, tutor, onExit, lab
   const [toasts, setToasts] = useState<{ id: number; ev: GameEvent }[]>([]);
   const [raceCard, setRaceCard] = useState<RaceId | null>(null);
   const [now, setNow] = useState(Date.now());
-  const [muted, setMuted] = useState(audio.muted);
   const [banner, setBanner] = useState<{ id: number; step: Step; cycle: number } | null>(null);
   const [shake, setShake] = useState(0);
   const [logOpen, setLogOpen] = useState(false);
@@ -205,7 +205,7 @@ export function GameScreen({ view: v, me, onDecide, controls, tutor, onExit, lab
             {controls.setAutopilot && <button class={`btn small ghost ${controls.autopilot ? "on" : ""}`} title="Let your bot play your seat" onClick={() => controls.setAutopilot!(!controls.autopilot)}>Autopilot</button>}
           </span>
         )}
-        <button class="btn small ghost" onClick={() => { audio.setMuted(!muted); setMuted(!muted); }}>{muted ? "🔇" : "🔊"}</button>
+        <SoundControls />
       </div>
 
       <div class="left">

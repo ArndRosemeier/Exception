@@ -375,3 +375,20 @@ h1, h2, h3 { font-family: var(--head); margin: 0; letter-spacing: 0.02em; }
   .pb-title { font-size: 34px; }
   .logo { font-size: 34px; }
 }
+
+/* Sound + settings */
+.sound-controls { display: inline-flex; align-items: center; gap: 6px; }
+.volume { width: 90px; accent-color: var(--cyan); cursor: pointer; }
+.volume.wide { width: 220px; }
+.settings h2, .whatsnew h2 { margin-bottom: 10px; }
+.settings h3, .whatsnew h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--cyan); margin: 14px 0 6px; }
+.settings-vol { display: flex; align-items: center; gap: 10px; }
+.small-note { font-size: 12px; margin-bottom: 6px; }
+.sound-row { display: grid; grid-template-columns: 22px 110px 1fr auto; gap: 8px; align-items: center; padding: 5px 6px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+.sound-row:hover { background: rgba(255,255,255,0.05); }
+.sound-row input { accent-color: var(--cyan); width: 16px; height: 16px; }
+.sound-name { font-weight: 600; }
+.release ul { margin: 0; padding-left: 18px; }
+.release li { margin: 3px 0; }
+.menu-card .menu-foot .btn { margin-left: 6px; padding: 4px 10px; display: inline-flex; flex-direction: row; }
+.menu-foot { gap: 10px; flex-wrap: wrap; }
