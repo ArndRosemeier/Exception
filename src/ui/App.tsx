@@ -14,6 +14,8 @@ import { Portrait } from "./common.tsx";
 import { GameScreen } from "./GameScreen.tsx";
 import { Lobby } from "./Lobby.tsx";
 import { Manual } from "./manual/Manual.tsx";
+import { SoundControls, WhatsNew } from "./Settings.tsx";
+import { VERSION } from "../changelog.ts";
 
 type Screen =
   | { name: "menu" }
@@ -43,6 +45,7 @@ export function App() {
 }
 
 function Menu({ go }: { go: (s: Screen) => void }) {
+  const [news, setNews] = useState(false);
   const watch = () => {
     const seed = (Date.now() % 100000) + 1;
     const r = { rng: seed };
@@ -73,7 +76,11 @@ function Menu({ go }: { go: (s: Screen) => void }) {
       <button class="btn" onClick={() => go({ name: "manual" })}>
         Manual <small>Scroll through every rule and race, animated and searchable.</small>
       </button>
-      <div class="menu-foot"><span>v0.1 · design v2</span><span>Art & music: OpenRouter</span></div>
+      <div class="menu-foot">
+        <span>v{VERSION} <button class="btn small ghost" onClick={() => setNews(true)}>What's new</button></span>
+        <SoundControls />
+      </div>
+      {news && <WhatsNew onClose={() => setNews(false)} />}
     </div>
   );
 }
